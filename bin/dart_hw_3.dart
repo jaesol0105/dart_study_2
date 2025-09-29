@@ -24,9 +24,9 @@ void main(List<String> arguments) async {
     }
   }
 
-  // 학생 데이터가 없을 경우 종료
-  if (students.isEmpty) {
-    print("학생 데이터가 없습니다");
+  // 학생 데이터가 없거나 1명일 경우 종료
+  if (studentNames.length < 2) {
+    print("학생 데이터가 1명 이하입니다.");
     return;
   }
 

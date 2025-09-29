@@ -5,6 +5,7 @@ import 'package:dart_hw_3/util.dart';
 import 'package:collection/collection.dart' show IterableExtension;
 import 'package:statistics/statistics.dart';
 
+/// [txt 파일 읽기]
 Future<String> getStudentsFileData() async {
   try {
     return await File('assets/students.txt').readAsString();
@@ -14,6 +15,7 @@ Future<String> getStudentsFileData() async {
   }
 }
 
+/// [특정 학생의 모든 성적 확인]
 String getStudentStatus(List<StudentScore> students) {
   while (true) {
     stdout.write("어떤 학생의 통계를 확인하시겠습니까? "); // 줄바꿈 없이 출력
@@ -37,6 +39,7 @@ String getStudentStatus(List<StudentScore> students) {
   }
 }
 
+/// [결과 txt 파일로 내보내기]
 void writeResultsToFile(String txt) {
   try {
     File('assets/results.txt').writeAsStringSync(txt);
@@ -46,6 +49,7 @@ void writeResultsToFile(String txt) {
   }
 }
 
+/// [우수생 출력 (동점일 경우 모두 출력)]
 void showTopStudents(List<StudentScore> averages) {
   final sorted = averages.sorted((a, b) => b.score.compareTo(a.score));
   final topScore = sorted.first.score; // 최고 점수
@@ -55,6 +59,7 @@ void showTopStudents(List<StudentScore> averages) {
   }
 }
 
+/// [전체 평균과 중앙값 출력]
 void showAverageAndMedian(List<StudentScore> averages) {
   final scores = averages.map((s) => s.score).toList();
   final avg = scores.sum / scores.length;
@@ -63,10 +68,11 @@ void showAverageAndMedian(List<StudentScore> averages) {
   print("평균 중앙 값: ${numberConverter(mid)}");
 }
 
+/// [성적 분포표 출력]
 void getGradeDistribution(List<StudentScore> averages) {
   final cutLines = {
-    "a": (averages.length * 0.3).ceil() - 1,
-    "b": (averages.length * 0.7).ceil() - 1,
+    "a": (averages.length * 0.3).floor(),
+    "b": (averages.length * 0.7).floor(),
   };
   final sorted = averages.sorted((a, b) => b.score.compareTo(a.score));
 
@@ -77,9 +83,9 @@ void getGradeDistribution(List<StudentScore> averages) {
   };
 
   for (var student in sorted) {
-    if (student.score >= cutScores["a"]!) {
+    if (student.score > cutScores["a"]!) {
       student.grade = "A";
-    } else if (student.score >= cutScores["b"]!) {
+    } else if (student.score > cutScores["b"]!) {
       student.grade = "B";
     } else {
       student.grade = "C";
@@ -98,6 +104,7 @@ void getGradeDistribution(List<StudentScore> averages) {
   );
 }
 
+/// [메뉴 출력]
 void showMenu() {
   showLine();
   print("메뉴를 선택하세요 :");
@@ -109,6 +116,7 @@ void showMenu() {
   stdout.write("입력: ");
 }
 
+/// [구분선 출력]
 void showLine() {
   print("------------------------------");
 }
