@@ -38,19 +38,6 @@ void main(List<String> arguments) async {
     final count = matches.length;
     averages.add(StudentScore(name, totalScore / count));
   }
-  /*
-  for (var name in studentNames) {
-    var totalScore = 0.0;
-    var count = 0;
-    for (var student in students) {
-      if (student.name == name) {
-        totalScore += student.score;
-        count++;
-      }
-    }
-    averages.add(StudentScore(name, totalScore / count));
-  }
-  */
 
   while (true) {
     showMenu();
